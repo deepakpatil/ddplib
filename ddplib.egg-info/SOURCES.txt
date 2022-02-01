@@ -1,0 +1,8 @@
+README.md
+setup.py
+ddplib/__init__.py
+ddplib/ddp.py
+ddplib.egg-info/PKG-INFO
+ddplib.egg-info/SOURCES.txt
+ddplib.egg-info/dependency_links.txt
+ddplib.egg-info/top_level.txt
