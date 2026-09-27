@@ -33,6 +33,9 @@ def _dim(V):
     return int(np.sum(sv > rtol*sv[0])) if sv[0] > 0 else 0
 
 def _null(M):
+    # scipy < 1.14 raises on empty matrices instead of returning an empty basis
+    if M.size == 0:
+       return np.identity(M.shape[1])
     return spl.null_space(M, rcond=rtol)
 
 def _zero_if_empty(V):
@@ -43,7 +46,10 @@ def _zero_if_empty(V):
 
 def _basis(V):
     '''Orthonormal basis of im V; the zero subspace gives an (n x 0) matrix.'''
-    return spl.orth(_as_2d(V), rcond=rtol)
+    V = _as_2d(V)
+    if V.size == 0:
+       return np.zeros((V.shape[0], 0))
+    return spl.orth(V, rcond=rtol)
 
 def _sum(V1, V2):
     return _basis(np.append(_basis(V1), _basis(V2), axis=1))
